@@ -46,8 +46,10 @@ def get_requirements(filename):
         logger.info("processing %s" % filename)
         with open(filename, "r") as f:
             for line in f.readlines():
-                line = line.strip()
-                yield line
+                if not line.startswith('#'):
+                    line = line.strip()
+                    if line:
+                        yield line
 
 
 def install(args, lock_filename="requirements.txt"):
